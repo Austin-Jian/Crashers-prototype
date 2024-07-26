@@ -1,5 +1,6 @@
 const counterDOM = document.getElementById('counter');  
 const endDOM = document.getElementById('end');  
+const retryButton = document.getElementById('retry');
 
 const scene = new THREE.Scene();
 
@@ -36,6 +37,7 @@ let moves;
 let stepStartTimestamp;
 
 let gameOver = false; // A flag to check whether the game has been over or not
+let collisionSoundPlayed = false; // A flag to check if the collision sound has been played
 
 const carFrontTexture = new Texture(40, 80, [{ x: 0, y: 10, w: 30, h: 60 }]);
 const carBackTexture = new Texture(40, 80, [{ x: 10, y: 10, w: 30, h: 60 }]);
@@ -117,6 +119,7 @@ const initaliseValues = () => {
   previousTimestamp = null;
 
   gameOver = false;
+  collisionSoundPlayed = false;
 
   startMoving = false;
   moves = [];
@@ -420,32 +423,50 @@ document.querySelector("#retry").addEventListener("click", () => {
   lanes.forEach(lane => scene.remove(lane.mesh));
   initaliseValues();
   endDOM.style.visibility = 'hidden';
+  retryButton.style.visibility = 'hidden';
+  playBackgroundMusic();
 });
 
-document.getElementById('forward').addEventListener("click", () => move('forward'));
+document.getElementById('forward').addEventListener("click", () => {
+  move('forward');
+  playMoveSound();
+});
 
-document.getElementById('backward').addEventListener("click", () => move('backward'));
+document.getElementById('backward').addEventListener("click", () => {
+  move('backward');
+  playMoveSound();
+});
 
-document.getElementById('left').addEventListener("click", () => move('left'));
+document.getElementById('left').addEventListener("click", () => {
+  move('left');
+  playMoveSound();
+});
 
-document.getElementById('right').addEventListener("click", () => move('right'));
+document.getElementById('right').addEventListener("click", () => {
+  move('right');
+  playMoveSound();
+});
 
 window.addEventListener("keydown", event => {
   if ((event.keyCode == '38') && (!gameOver)) {
     // up arrow
     move('forward');
+    playMoveSound();
   }
   else if ((event.keyCode == '40') && (!gameOver)) {
     // down arrow
     move('backward');
+    playMoveSound();
   }
   else if ((event.keyCode == '37') && (!gameOver)) {
     // left arrow
     move('left');
+    playMoveSound();
   }
   else if ((event.keyCode == '39') && (!gameOver)) {
     // right arrow
     move('right');
+    playMoveSound();
   }
 });
 
@@ -589,8 +610,16 @@ function animate(timestamp) {
       const carMinX = vechicle.position.x - vechicleLength * zoom / 2;
       const carMaxX = vechicle.position.x + vechicleLength * zoom / 2;
       if (customImageMaxX > carMinX && customImageMinX < carMaxX) {
-        gameOver = true;
-        endDOM.style.visibility = 'visible';
+        if (!collisionSoundPlayed) {
+          gameOver = true;
+          endDOM.style.visibility = 'visible';
+          stopAllAudio();
+          collisionSoundPlayed = true;
+          playCollisionSound();
+          setTimeout(() => {
+            retryButton.style.visibility = 'visible';
+          }, 2000);
+        }
       }
     });
 
@@ -600,3 +629,55 @@ function animate(timestamp) {
 }
 
 requestAnimationFrame(animate);
+
+// Audio
+const backgroundMusic = document.getElementById('background-music');
+const moveSound = document.getElementById('move-sound');
+const collisionSound = document.getElementById('collision-sound');
+
+// Set the volume for the move sound to be quieter
+moveSound.volume = 0.05; // Adjust the volume level to a quieter setting (0.0 to 1.0)
+
+// Function to play background music
+function playBackgroundMusic() {
+  backgroundMusic.play().catch(error => {
+    console.log('Error playing background music:', error);
+  });
+}
+
+// Function to stop all audio
+function stopAllAudio() {
+  backgroundMusic.pause();
+  backgroundMusic.currentTime = 0;
+  moveSound.pause();
+  moveSound.currentTime = 0;
+  collisionSound.pause();
+  collisionSound.currentTime = 0;
+}
+
+// Function to start background music after user interaction
+function userInteractionHandler() {
+  playBackgroundMusic();
+  window.removeEventListener('click', userInteractionHandler);
+  window.removeEventListener('keydown', userInteractionHandler);
+}
+
+// Add event listeners for user interaction to start background music
+window.addEventListener('click', userInteractionHandler, { once: true });
+window.addEventListener('keydown', userInteractionHandler, { once: true });
+
+// Function to play move sound
+function playMoveSound() {
+  moveSound.currentTime = 0;
+  moveSound.play().catch(error => {
+    console.log('Error playing move sound:', error);
+  });
+}
+
+// Function to play collision sound
+function playCollisionSound() {
+  collisionSound.currentTime = 0;
+  collisionSound.play().catch(error => {
+    console.log('Error playing collision sound:', error);
+  });
+}
