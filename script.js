@@ -57,7 +57,7 @@ const truckRightSideTexture = new Texture(25, 30, [{ x: 0, y: 15, w: 10, h: 10 }
 const truckLeftSideTexture = new Texture(25, 30, [{ x: 0, y: 5, w: 10, h: 10 }]);
 
 // Generate lanes for the board
-const generateLanes = () => [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const generateLanes = () => [-13,-12,-11,-10,-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13]
   .map((index) => {
     const lane = new Lane(index);
     lane.mesh.position.y = index * positionWidth * zoom;
@@ -469,28 +469,30 @@ document.getElementById('right').addEventListener("click", () => {
 });
 
 // Event listener for keyboard input
+// Event listener for keyboard input
 window.addEventListener("keydown", event => {
   if ((event.keyCode == '38') && (!gameOver)) {
-    // up arrow
-    move('forward');
-    playMoveSound();
-  }
-  else if ((event.keyCode == '40') && (!gameOver)) {
-    // down arrow
+    // up arrow (inverted to move backward)
     move('backward');
     playMoveSound();
   }
-  else if ((event.keyCode == '37') && (!gameOver)) {
-    // left arrow
-    move('left');
+  else if ((event.keyCode == '40') && (!gameOver)) {
+    // down arrow (inverted to move forward)
+    move('forward');
     playMoveSound();
   }
-  else if ((event.keyCode == '39') && (!gameOver)) {
-    // right arrow
+  else if ((event.keyCode == '37') && (!gameOver)) {
+    // left arrow (inverted to move right)
     move('right');
     playMoveSound();
   }
+  else if ((event.keyCode == '39') && (!gameOver)) {
+    // right arrow (inverted to move left)
+    move('left');
+    playMoveSound();
+  }
 });
+
 
 // Move function to handle player movement
 function move(direction) {
