@@ -159,19 +159,19 @@ const customImageShadowTexture = createShadowTexture(chickenSize * zoom * 3, chi
 
 // Function to create a sprite with shadow
 // Function to create a sprite with shadow
-function createSpriteWithShadow(texture, width, height, shadowTexture) {
+// Function to create a sprite with shadow
+function createSpriteWithShadow(texture, width, height, shadowTexture, shadowZOffset = -height / 2 * zoom - 1) {
   const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
   const sprite = new THREE.Sprite(material);
   sprite.scale.set(width * zoom, height * zoom, 1);
   sprite.castShadow = true;
   sprite.receiveShadow = false;
-  sprite.position.z = 30; // Restore z position for all sprites except custom image sprite
-
+  sprite.position.z = 40; // Default z position for all sprites
 
   const shadowMaterial = new THREE.SpriteMaterial({ map: shadowTexture, transparent: true });
   const shadowSprite = new THREE.Sprite(shadowMaterial);
   shadowSprite.scale.set(width * zoom, height / 2 * zoom, 1);
-  shadowSprite.position.set(0, 0, -height / 2 * zoom - 1);
+  shadowSprite.position.set(0, 0, shadowZOffset);
 
   const group = new THREE.Group();
   group.add(shadowSprite);
@@ -186,10 +186,10 @@ function createSpriteWithShadow(texture, width, height, shadowTexture) {
   return group;
 }
 
-
 // Create the sprite for the custom image with shadow
 const customImageGroup = createSpriteWithShadow(customTexture, chickenSize * 3, chickenSize * 3, customImageShadowTexture);
-customImageGroup.position.z = 0; // Adjust z position to bring the sprite above the ground
+customImageGroup.position.z = 20*zoom-40; // Adjust z position to bring the sprite above the ground
+customImageGroup.children[0].position
 customImageGroup.renderOrder = 2; // Set render order to ensure it renders after the car
 scene.add(customImageGroup);
 
