@@ -43,7 +43,8 @@
 </div>
 
 <div id="end">
-  <button id="retry" style="visibility: hidden;">Retry</button>
+  <button id="retry" class="menu-button" style="visibility: hidden;">Retry</button>
+  <button id="return-to-menu" class="menu-button" style="visibility: hidden;" onclick="location.href='menu.html'">Return to Menu</button>
 </div>
 
 <audio id="background-music" src="sfx/bg.mp3" loop></audio>
@@ -52,6 +53,24 @@
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js'></script>
 <script src="./script.js"></script>
+
+<script>
+  // Assuming the logic to show the retry button is in script.js, 
+  // let's also show the return to menu button at the same time
+  const retryButton = document.getElementById('retry');
+  const returnToMenuButton = document.getElementById('return-to-menu');
+
+  // Example function to show the buttons when needed
+  function showEndButtons() {
+    retryButton.style.visibility = 'visible';
+    returnToMenuButton.style.visibility = 'visible';
+  }
+
+  // For testing purposes, you can call this function to show the buttons
+  // showEndButtons();
+
+  // Ensure this function is called in the appropriate game logic in script.js
+</script>
 
 </body>
 </html>

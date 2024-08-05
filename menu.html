@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: url('miscImages/bgMenu.png') no-repeat center center fixed;
+      background-size: 100% 100vh; /* Stretch the width to 100% and keep the height to 60vh */
+    }
+    .menu-container {
+      text-align: center;
+    }
+    .menu-container button {
+      display: block;
+      width: 300px; /* Increase width to 250px */
+      padding: 15px;
+      margin: 10px auto;
+      font-size: 18px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive; /* Apply the game-like font */
+      border: 2px solid black; /* Black border */
+      background-color: lightblue; /* Light blue fill */
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <img src="miscImages/logo.png" alt="Logo">
+    <button onclick="location.href='index.html'">Play</button>
+    <button onclick="location.href='characters.html'">Characters</button>
+    <button id="toggle-music">Toggle Music</button>
+    <button id="toggle-sound-effects">Toggle Sound Effects</button>
+  </div>
+
+  <audio id="background-music" src="sfx/bg.mp3" loop></audio>
+
+  <script>
+    const backgroundMusic = document.getElementById('background-music');
+    const toggleMusicButton = document.getElementById('toggle-music');
+    const toggleSoundEffectsButton = document.getElementById('toggle-sound-effects');
+
+    toggleMusicButton.addEventListener('click', () => {
+      if (backgroundMusic.paused) {
+        backgroundMusic.play();
+        toggleMusicButton.textContent = 'Turn Music Off';
+        localStorage.setItem('musicEnabled', 'true');
+      } else {
+        backgroundMusic.pause();
+        toggleMusicButton.textContent = 'Turn Music On';
+        localStorage.setItem('musicEnabled', 'false');
+      }
+    });
+
+    toggleSoundEffectsButton.addEventListener('click', () => {
+      const soundEffectsEnabled = localStorage.getItem('soundEffectsEnabled') === 'true';
+      localStorage.setItem('soundEffectsEnabled', !soundEffectsEnabled);
+      toggleSoundEffectsButton.textContent = soundEffectsEnabled ? 'Turn SFX On' : 'Turn SFX Off';
+    });
+
+    // Initialize button text based on the audio state
+    const musicEnabled = localStorage.getItem('musicEnabled') === 'true';
+    if (musicEnabled) {
+      backgroundMusic.play();
+      toggleMusicButton.textContent = 'Turn Music Off';
+    } else {
+      toggleMusicButton.textContent = 'Turn Music On';
+    }
+
+    const soundEffectsEnabled = localStorage.getItem('soundEffectsEnabled') === 'true';
+    toggleSoundEffectsButton.textContent = soundEffectsEnabled ? 'Turn SFX Off' : 'Turn SFX On';
+  </script>
+</body>
+</html>

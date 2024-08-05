@@ -2,6 +2,15 @@
 const counterDOM = document.getElementById('counter');
 const endDOM = document.getElementById('end');
 const retryButton = document.getElementById('retry');
+const returnToMenuButton = document.createElement('button');
+returnToMenuButton.id = 'return-to-menu';
+returnToMenuButton.classList.add('menu-button');
+returnToMenuButton.style.visibility = 'hidden';
+returnToMenuButton.textContent = 'Return to Menu';
+returnToMenuButton.addEventListener('click', () => {
+  location.href = 'menu.html';
+});
+endDOM.appendChild(returnToMenuButton);
 
 // Create a new Three.js scene
 const scene = new THREE.Scene();
@@ -157,8 +166,11 @@ const carShadowTexture = createShadowTexture(50 * zoom, 25 * zoom);
 const truckShadowTexture = createShadowTexture(60 * zoom, 30 * zoom);
 const customImageShadowTexture = createShadowTexture(chickenSize * zoom * 3, chickenSize * zoom / 2);
 
-// Function to create a sprite with shadow
-// Function to create a sprite with shadow
+// Custom shadow textures for tree, cow, and elephant emojis
+const treeShadowTexture = createShadowTexture(30 * zoom, 15 * zoom);
+const cowShadowTexture = createShadowTexture(70 * zoom, 35 * zoom);
+const elephantShadowTexture = createShadowTexture(80 * zoom, 40 * zoom);
+
 // Function to create a sprite with shadow
 function createSpriteWithShadow(texture, width, height, shadowTexture, shadowZOffset = -height / 2 * zoom - 1) {
   const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
@@ -227,9 +239,6 @@ const laneSpeeds = [2, 2.5, 3];
 const vechicleColors = [0x428eff, 0xffef42, 0xff7b42, 0xff426b];
 const threeHeights = [20, 45, 60];
 
-// Create the tree shadow texture
-const treeShadowTexture = createShadowTexture(30 * zoom, 15 * zoom);
-
 // Function to create a tree sprite with shadow
 function createTreeSprite(emoji, size, shadowTexture) {
   const canvas = document.createElement("canvas");
@@ -244,7 +253,6 @@ function createTreeSprite(emoji, size, shadowTexture) {
 
   return createSpriteWithShadow(texture, size, size, shadowTexture);
 }
-
 
 function Three() {
   const three = new THREE.Group();
@@ -550,6 +558,7 @@ document.querySelector("#retry").addEventListener("click", () => {
   initaliseValues();
   endDOM.style.visibility = 'hidden';
   retryButton.style.visibility = 'hidden';
+  returnToMenuButton.style.visibility = 'hidden';
   playBackgroundMusic();
 });
 
@@ -631,7 +640,6 @@ function move(direction) {
 }
 
 // Animation loop function
-// Update the hit test in the animate function
 function animate(timestamp) {
   requestAnimationFrame(animate);
 
@@ -751,6 +759,7 @@ function animate(timestamp) {
           playCollisionSound();
           setTimeout(() => {
             retryButton.style.visibility = 'visible';
+            returnToMenuButton.style.visibility = 'visible';
           }, 2000);
         }
       }
@@ -771,12 +780,22 @@ const collisionSound = document.getElementById('collision-sound');
 // Set the volume for the move sound to be quieter
 moveSound.volume = 0.05; // Adjust the volume level to a quieter setting (0.0 to 1.0)
 
+
+// Function to play background music
 // Function to play background music
 function playBackgroundMusic() {
-  backgroundMusic.play().catch(error => {
-    console.log('Error playing background music:', error);
-  });
+  const musicEnabled = localStorage.getItem('musicEnabled') === 'true';
+  if (musicEnabled) {
+    backgroundMusic.play().catch(error => {
+      console.log('Error playing background music:', error);
+    });
+  }
 }
+
+// Immediately play background music when the page loads if music is enabled
+playBackgroundMusic();
+
+
 
 // Function to stop all audio
 function stopAllAudio() {
@@ -799,18 +818,22 @@ function userInteractionHandler() {
 window.addEventListener('click', userInteractionHandler, { once: true });
 window.addEventListener('keydown', userInteractionHandler, { once: true });
 
-// Function to play move sound
 function playMoveSound() {
-  moveSound.currentTime = 0;
-  moveSound.play().catch(error => {
-    console.log('Error playing move sound:', error);
-  });
+  const soundEffectsEnabled = localStorage.getItem('soundEffectsEnabled') === 'true';
+  if (soundEffectsEnabled) {
+    moveSound.currentTime = 0;
+    moveSound.play().catch(error => {
+      console.log('Error playing move sound:', error);
+    });
+  }
 }
 
-// Function to play collision sound
 function playCollisionSound() {
-  collisionSound.currentTime = 0;
-  collisionSound.play().catch(error => {
-    console.log('Error playing collision sound:', error);
-  });
+  const soundEffectsEnabled = localStorage.getItem('soundEffectsEnabled') === 'true';
+  if (soundEffectsEnabled) {
+    collisionSound.currentTime = 0;
+    collisionSound.play().catch(error => {
+      console.log('Error playing collision sound:', error);
+    });
+  }
 }
