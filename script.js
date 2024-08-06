@@ -3,6 +3,7 @@ const counterDOM = document.getElementById('counter');
 const endDOM = document.getElementById('end');
 const retryButton = document.getElementById('retry');
 const returnToMenuButton = document.createElement('button');
+const gameOverText = document.getElementById('game-over');
 returnToMenuButton.id = 'return-to-menu';
 returnToMenuButton.classList.add('menu-button');
 returnToMenuButton.style.visibility = 'hidden';
@@ -82,7 +83,7 @@ const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 sphere.position.z = 40; // Ensure sphere is behind other elements by z position
 
 sphere.renderOrder = -10; // Render the sphere first
-scene.add(sphere);
+
 
 
 // Generate lanes for the board
@@ -177,6 +178,7 @@ function createSpriteWithShadow(texture, width, height, shadowTexture, shadowZOf
 
   return group;
 }
+
 
 
 // Create the sprite for the custom image with shadow
@@ -446,22 +448,22 @@ document.querySelector("#retry").addEventListener("click", () => {
 
 // Event listeners for move buttons
 document.getElementById('forward').addEventListener("click", () => {
-  move('forward');
-  playMoveSound();
-});
-
-document.getElementById('backward').addEventListener("click", () => {
   move('backward');
   playMoveSound();
 });
 
+document.getElementById('backward').addEventListener("click", () => {
+  move('forward');
+  playMoveSound();
+});
+
 document.getElementById('left').addEventListener("click", () => {
-  move('left');
+  move('right');
   playMoveSound();
 });
 
 document.getElementById('right').addEventListener("click", () => {
-  move('right');
+  move('left');
   playMoveSound();
 });
 
@@ -621,32 +623,39 @@ function animate(timestamp) {
   customImageGroup.children[1].material.depthWrite = true;
 
   // Hit test
-  if (lanes[currentLane].type === 'car' || lanes[currentLane].type === 'truck') {
-    const customImageMinX = customImageGroup.position.x - chickenSize * zoom / 2;
-    const customImageMaxX = customImageGroup.position.x + chickenSize * zoom / 2;
-    const vehicleLength = { car: 50, truck: 60 }[lanes[currentLane].type]; // Use correct sprite dimensions
-    lanes[currentLane].vehicles.forEach(vehicle => {
-      const vehicleMinX = vehicle.position.x - vehicleLength * zoom / 2;
-      const vehicleMaxX = vehicle.position.x + vehicleLength * zoom / 2;
-      if (customImageMaxX > vehicleMinX && customImageMinX < vehicleMaxX) {
-        // Ensure the car is always on top during collision
-        if (lanes[currentLane].type === 'car') {
-          customImageGroup.position.z = vehicle.position.z - 0.1; // Adjust z-index to make sure car is on top
-        }
-        if (!collisionSoundPlayed) {
-          gameOver = true;
-          endDOM.style.visibility = 'visible';
-          stopAllAudio();
-          collisionSoundPlayed = true;
-          playCollisionSound();
-          setTimeout(() => {
-            retryButton.style.visibility = 'visible';
-            returnToMenuButton.style.visibility = 'visible';
-          }, 2000);
-        }
+  // Hit test
+if (lanes[currentLane].type === 'car' || lanes[currentLane].type === 'truck') {
+  const customImageMinX = customImageGroup.position.x - chickenSize * zoom / 2;
+  const customImageMaxX = customImageGroup.position.x + chickenSize * zoom / 2;
+  const vehicleLength = { car: 50, truck: 60 }[lanes[currentLane].type]; // Use correct sprite dimensions
+  lanes[currentLane].vehicles.forEach(vehicle => {
+    const vehicleMinX = vehicle.position.x - vehicleLength * zoom / 2;
+    const vehicleMaxX = vehicle.position.x + vehicleLength * zoom / 2;
+    if (customImageMaxX > vehicleMinX && customImageMinX < vehicleMaxX) {
+      // Ensure the car is always on top during collision
+      if (lanes[currentLane].type === 'car') {
+        customImageGroup.position.z = vehicle.position.z - 0.1; // Adjust z-index to make sure car is on top
       }
-    });
-  }
+      if (!collisionSoundPlayed) {
+        gameOver = true;
+        endDOM.style.visibility = 'visible';
+        stopAllAudio();
+        collisionSoundPlayed = true;
+        playCollisionSound();
+
+        // Show game over text
+        gameOverText.style.visibility = 'visible';
+
+        setTimeout(() => {
+          gameOverText.style.visibility = 'hidden';
+          retryButton.style.visibility = 'visible';
+          returnToMenuButton.style.visibility = 'visible';
+        }, 2000);
+      }
+    }
+  });
+}
+
 
   renderer.render(scene, camera);
 }
