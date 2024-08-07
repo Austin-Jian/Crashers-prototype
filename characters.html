@@ -8,7 +8,81 @@
   <style>
     body {
       background: url('miscImages/characterBackground.png') no-repeat center center fixed;
-      background-size: 100% 100vh;
+      background-size: cover;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .character-selection-container {
+      text-align: center;
+      margin-bottom: 20px;
+      overflow-y: auto;
+      height: 70%;
+      width: 100%;
+    }
+
+    .characters-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .character-slot-container {
+      width: 15%;
+      margin: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .character-slot-container:hover {
+      transform: translateY(-10px);
+    }
+
+    .character-slot-container.selected {
+      transform: translateY(-15px);
+    }
+
+    .character-slot {
+      width: 100%;
+      padding-top: 100%;
+      position: relative;
+    }
+
+    .character-slot img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .character-nametag {
+      margin-top: 10px;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .buttons-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    .message-container {
+      margin-top: 20px;
+      font-size: 24px;
+      color: red;
+      display: none;
     }
   </style>
 </head>
@@ -16,74 +90,130 @@
   <div class="character-selection-container">
     <h1>Select Your Character</h1>
     <div class="characters-grid">
-      <!-- Generate 14 character slots with nametags -->
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(1)"></div>
-        <div class="character-nametag">Character 1</div>
+      <div class="character-slot-container" onclick="selectCharacter(1)">
+        <div class="character-slot">
+          <img src="characters/chique.png" alt="CHIQUE">
+        </div>
+        <div class="character-nametag">CHIQUE</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(2)"></div>
-        <div class="character-nametag">Character 2</div>
+      <div class="character-slot-container" onclick="selectCharacter(2)">
+        <div class="character-slot">
+          <img src="characters/dawg.png" alt="DAWG">
+        </div>
+        <div class="character-nametag">DAWG</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(3)"></div>
-        <div class="character-nametag">Character 3</div>
+      <div class="character-slot-container" onclick="selectCharacter(3)">
+        <div class="character-slot">
+          <img src="characters/sheape.png" alt="SHEAPE">
+        </div>
+        <div class="character-nametag">SHEAPE</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(4)"></div>
-        <div class="character-nametag">Character 4</div>
+      <div class="character-slot-container" onclick="selectCharacter(4)">
+        <div class="character-slot">
+          <img src="characters/cama.png" alt="CAMA">
+        </div>
+        <div class="character-nametag">CAMA</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(5)"></div>
-        <div class="character-nametag">Character 5</div>
+      <div class="character-slot-container" onclick="selectCharacter(5)">
+        <div class="character-slot">
+          <img src="characters/pigue.png" alt="PIGUE">
+        </div>
+        <div class="character-nametag">PIGUE</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(6)"></div>
-        <div class="character-nametag">Character 6</div>
+      <div class="character-slot-container" onclick="selectCharacter(6)">
+        <div class="character-slot">
+          <img src="characters/bool.png" alt="BOOL">
+        </div>
+        <div class="character-nametag">BOOL</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(7)"></div>
-        <div class="character-nametag">Character 7</div>
+      <div class="character-slot-container" onclick="selectCharacter(7)">
+        <div class="character-slot">
+          <img src="characters/tort.png" alt="TORT">
+        </div>
+        <div class="character-nametag">TORT</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(8)"></div>
-        <div class="character-nametag">Character 8</div>
+      <div class="character-slot-container" onclick="selectCharacter(8)">
+        <div class="character-slot">
+          <img src="characters/pengwyn.png" alt="PENGWYN">
+        </div>
+        <div class="character-nametag">PENGWYN</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(9)"></div>
-        <div class="character-nametag">Character 9</div>
+      <div class="character-slot-container" onclick="selectCharacter(9)">
+        <div class="character-slot">
+          <img src="characters/kattt.png" alt="KATTT">
+        </div>
+        <div class="character-nametag">KATTT</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(10)"></div>
-        <div class="character-nametag">Character 10</div>
+      <div class="character-slot-container" onclick="selectCharacter(10)">
+        <div class="character-slot">
+          <img src="characters/bunny.png" alt="BUNNY">
+        </div>
+        <div class="character-nametag">BUNNY</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(11)"></div>
-        <div class="character-nametag">Character 11</div>
+      <div class="character-slot-container" onclick="selectCharacter(11)">
+        <div class="character-slot">
+          <img src="characters/dog2.png" alt="DOG 2">
+        </div>
+        <div class="character-nametag">DOG</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(12)"></div>
-        <div class="character-nametag">Character 12</div>
+      <div class="character-slot-container" onclick="selectCharacter(12)">
+        <div class="character-slot">
+          <img src="characters/ele.png" alt="ELEPHANT">
+        </div>
+        <div class="character-nametag">ELEPHANT</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(13)"></div>
-        <div class="character-nametag">Character 13</div>
+      <div class="character-slot-container" onclick="selectCharacter(13)">
+        <div class="character-slot">
+          <img src="characters/goat.png" alt="GOAT">
+        </div>
+        <div class="character-nametag">GOAT</div>
       </div>
-      <div class="character-slot-container">
-        <div class="character-slot" onclick="selectCharacter(14)"></div>
-        <div class="character-nametag">Character 14</div>
+      <div class="character-slot-container" onclick="selectCharacter(14)">
+        <div class="character-slot">
+          <img src="characters/hedge.png" alt="HEDGE">
+        </div>
+        <div class="character-nametag">HEDGE</div>
       </div>
     </div>
   </div>
   <div class="buttons-container">
-    <button id="select-button" onclick="selectCharacter()">Select</button>
+    <button id="select-button" onclick="confirmSelection()">Select</button>
     <button id="return-button" onclick="returnToMenu()">Return to Menu</button>
+  </div>
+  <div class="message-container" id="message-container">
+    Character selected!
   </div>
 
   <script>
+    let selectedCharacterId = null;
+    let selectedCharacterAlt = '';
+
     function selectCharacter(characterId) {
-      alert('Character ' + characterId + ' selected!');
-      // Add logic to save the selected character and proceed to the game
+      if (selectedCharacterId !== null) {
+        document.querySelector(`.character-slot-container.selected`).classList.remove('selected');
+      }
+      selectedCharacterId = characterId;
+      const selectedCharacter = document.querySelectorAll('.character-slot-container')[characterId - 1];
+      selectedCharacter.classList.add('selected');
+      selectedCharacterAlt = selectedCharacter.querySelector('img').alt;
+    }
+
+    function confirmSelection() {
+      if (selectedCharacterId !== null) {
+        const messageContainer = document.getElementById('message-container');
+        messageContainer.style.display = 'block';
+        messageContainer.textContent = selectedCharacterAlt + ' selected!';
+        setTimeout(() => {
+          returnToMenu();
+        }, 2000);
+      } else {
+        const messageContainer = document.getElementById('message-container');
+        messageContainer.style.display = 'block';
+        messageContainer.textContent = 'Please select a character first!';
+        setTimeout(() => {
+          messageContainer.style.display = 'none';
+        }, 2000);
+      }
     }
 
     function returnToMenu() {
