@@ -87,6 +87,7 @@
   </style>
 </head>
 <body>
+
   <div class="character-selection-container">
     <h1>Select Your Character</h1>
     <div class="characters-grid">
@@ -183,7 +184,7 @@
   <div class="message-container" id="message-container">
     Character selected!
   </div>
-
+  <audio id="background-music" src="sfx/bg.mp3" loop></audio>
   <script>
     let selectedCharacterId = null;
     let selectedCharacterAlt = '';
@@ -209,20 +210,41 @@
         localStorage.setItem('selectedCharacterBase64', selectedCharacterBase64);
         setTimeout(() => {
           returnToMenu();
-        }, 2000);
+        }, 1000);
       } else {
         const messageContainer = document.getElementById('message-container');
         messageContainer.style.display = 'block';
         messageContainer.textContent = 'Please select a character first!';
         setTimeout(() => {
           messageContainer.style.display = 'none';
-        }, 2000);
+        }, 1000);
       }
     }
 
     function returnToMenu() {
       window.location.href = 'menu.html'; // Redirects to index.html
     }
+
+    function playBackgroundMusic() {
+      const musicEnabled = localStorage.getItem('musicEnabled') === 'true';
+      if (musicEnabled) {
+        const backgroundMusic = document.getElementById('background-music');
+        backgroundMusic.play().catch(error => {
+          console.log('Error playing background music:', error);
+        });
+      }
+    }
+
+    // Function to start background music after user interaction
+    function userInteractionHandler() {
+      playBackgroundMusic();
+      window.removeEventListener('click', userInteractionHandler);
+      window.removeEventListener('keydown', userInteractionHandler);
+    }
+
+    // Add event listeners for user interaction to start background music
+    window.addEventListener('click', userInteractionHandler, { once: true });
+    window.addEventListener('keydown', userInteractionHandler, { once: true });
   </script>
 </body>
 </html>
