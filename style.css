@@ -7,6 +7,12 @@ body {
   font-size: 2em;
   color: white;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  background-color: #f0f0f0;
 }
 
 button {
@@ -63,14 +69,14 @@ button {
 
 .menu-button {
   display: block;
-  width: 250px; /* Match the width of the menu buttons */
+  width: 250px;
   padding: 15px;
-  margin: -15px; /* Match the margin on the menu buttons */
+  margin: -15px;
   font-size: 18px;
   cursor: pointer;
-  font-family: 'Press Start 2P', cursive; /* Apply the game-like font */
-  border: 2px solid black; /* Black border */
-  background-color: lightblue; /* Light blue fill */
+  font-family: 'Press Start 2P', cursive;
+  border: 2px solid black;
+  background-color: lightblue;
 }
 
 .credits {
@@ -101,4 +107,71 @@ i {
 
 .fa-js {
   color: rgb(65, 65, 65);
+}
+
+.character-selection-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+h1 {
+  font-size: 3em;
+  margin: 20px 0;
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.character-slot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.character-slot {
+  width: 200px;
+  height: 200px;
+  background-color: #ddd;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.character-nametag {
+  margin-top: 10px;
+  font-size: 1.5em;
+}
+
+.buttons-container {
+  margin-top: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+button {
+  width: 200px;
+  padding: 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+#select-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#return-button {
+  background-color: #f44336;
+  color: white;
 }

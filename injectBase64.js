@@ -8,7 +8,8 @@ const base64Files = {
   truckTextureBase64: 'characters/cow64.txt',
   reverseCarTextureBase64: 'characters/reverseElephant64.txt',
   reverseTruckTextureBase64: 'characters/reverseCow64.txt',
-  treeTexture1Base64: 'miscImages/tree1.txt'
+  treeTexture1Base64: 'miscImages/tree1.txt',
+  treeTexture2Base64: 'miscImages/tree2.txt'
 };
 
 // Function to read base64 data from files

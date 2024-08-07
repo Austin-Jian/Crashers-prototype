@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Character Selection</title>
+  <link rel="icon" href="characters/chique.png">
+  <link rel="stylesheet" href="characters.css">
+</head>
+<body>
+  <div class="character-selection-container">
+    <h1>Select Your Character</h1>
+    <div class="characters-grid">
+      <!-- Generate 14 character slots with nametags -->
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(1)"></div>
+        <div class="character-nametag">Character 1</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(2)"></div>
+        <div class="character-nametag">Character 2</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(3)"></div>
+        <div class="character-nametag">Character 3</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(4)"></div>
+        <div class="character-nametag">Character 4</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(5)"></div>
+        <div class="character-nametag">Character 5</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(6)"></div>
+        <div class="character-nametag">Character 6</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(7)"></div>
+        <div class="character-nametag">Character 7</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(8)"></div>
+        <div class="character-nametag">Character 8</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(9)"></div>
+        <div class="character-nametag">Character 9</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(10)"></div>
+        <div class="character-nametag">Character 10</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(11)"></div>
+        <div class="character-nametag">Character 11</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(12)"></div>
+        <div class="character-nametag">Character 12</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(13)"></div>
+        <div class="character-nametag">Character 13</div>
+      </div>
+      <div class="character-slot-container">
+        <div class="character-slot" onclick="selectCharacter(14)"></div>
+        <div class="character-nametag">Character 14</div>
+      </div>
+    </div>
+  </div>
+  <div class="buttons-container">
+    <button id="select-button" onclick="selectCharacter()">Select</button>
+    <button id="return-button" onclick="returnToMenu()">Return to Menu</button>
+  </div>
+
+  <script>
+    function selectCharacter(characterId) {
+      alert('Character ' + characterId + ' selected!');
+      // Add logic to save the selected character and proceed to the game
+    }
+
+    function returnToMenu() {
+      alert('Returning to menu');
+      // Add logic to return to the menu
+    }
+  </script>
+</body>
+</html>
