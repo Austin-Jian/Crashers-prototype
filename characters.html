@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <title>Character Selection</title>
   <link rel="icon" href="characters/chique.png">
-  <link rel="stylesheet" href="characters.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: url('miscImages/characterBackground.png') no-repeat center center fixed;
+      background-size: 100% 100vh;
+    }
+  </style>
 </head>
 <body>
   <div class="character-selection-container">
@@ -81,8 +87,7 @@
     }
 
     function returnToMenu() {
-      alert('Returning to menu');
-      // Add logic to return to the menu
+      window.location.href = 'menu.html'; // Redirects to menu.html
     }
   </script>
 </body>

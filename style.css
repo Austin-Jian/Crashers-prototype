@@ -5,7 +5,7 @@ body {
   margin: 0;
   font-family: 'Press Start 2P', cursive;
   font-size: 2em;
-  color: white;
+  color: black;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -116,7 +116,7 @@ i {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 2em;
   margin: 20px 0;
 }
 
@@ -135,17 +135,21 @@ h1 {
 }
 
 .character-slot {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   background-color: #ddd;
-  border: 2px solid #ccc;
+  border: 2.5px solid #000000;
   border-radius: 10px;
+  margin-bottom: 20px;
   cursor: pointer;
+  background: url('miscImages/bgSlot.png') no-repeat center center fixed;
+  background-size: 100%;
+
 }
 
 .character-nametag {
   margin-top: 10px;
-  font-size: 1.5em;
+  font-size: 0.5em;
 }
 
 .buttons-container {
@@ -158,20 +162,25 @@ h1 {
 }
 
 button {
-  width: 200px;
+  width: 600px;
   padding: 10px;
-  font-size: 1.2em;
+  font-size: 1em;
   cursor: pointer;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 #select-button {
-  background-color: #4CAF50;
-  color: white;
+  background-color: lightblue;
+  color: black;
+  font-family: 'Press Start 2P', cursive;
+  border: 2px solid black;
 }
 
 #return-button {
-  background-color: #f44336;
-  color: white;
+  background-color: lightblue;
+  color: black;
+  font-family: 'Press Start 2P', cursive;
+  border: 2px solid black;
 }
+
