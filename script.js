@@ -74,7 +74,7 @@ const reverseTruckTexture = textureLoader.load(`${reverseTruckTextureBase64}`);
 const treeTexture1 = textureLoader.load(`${treeTexture1Base64}`);
 const treeTexture2 = textureLoader.load(`${treeTexture2Base64}`);
 
-const sphereGeometry = new THREE.SphereGeometry(40, 60, 60);
+const sphereGeometry = new THREE.SphereGeometry(30, 30, 60);
 const sphereMaterial = new THREE.MeshBasicMaterial({
   color: 0x3C3C3C,
   transparent: true,  // Allow transparency
@@ -83,7 +83,8 @@ const sphereMaterial = new THREE.MeshBasicMaterial({
   depthWrite: false   // Disable depth writing so other objects can render over it
 });
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-sphere.position.z = 40; // Ensure sphere is behind other elements by z position
+scene.add(sphere);
+sphere.position.z = 50; // Ensure sphere is behind other elements by z position
 
 sphere.renderOrder = -10; // Render the sphere first
 
@@ -158,7 +159,7 @@ function createSpriteWithShadow(texture, width, height, shadowTexture, shadowZOf
   const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
   const sprite = new THREE.Sprite(material);
   sprite.scale.set(width * zoom, height * zoom, 1);
-  sprite.castShadow = true;
+  sprite.castShadow = false;
   sprite.receiveShadow = false;
   sprite.position.z = zPosition; // Use the provided z position or default to 40
 
@@ -277,8 +278,8 @@ const initaliseValues = () => {
   stepStartTimestamp = null;
   customImageGroup.position.x = 0;
   customImageGroup.position.y = 0;
-  sphere.position.x = customImageGroup.position.x - 5; // Initial sphere position relative to custom image
-  sphere.position.y = customImageGroup.position.y + 50; // Initial sphere position relative to custom image
+  sphere.position.x = customImageGroup.position.x - 12; // Initial sphere position relative to custom image
+  sphere.position.y = customImageGroup.position.y + 42; // Initial sphere position relative to custom image
   camera.position.y = initialCameraPositionY;
   camera.position.x = initialCameraPositionX;
   dirLight.position.x = initialDirLightPositionX;
@@ -581,7 +582,7 @@ function animate(timestamp) {
         camera.position.y = initialCameraPositionY + positionY;
         dirLight.position.y = initialDirLightPositionY + positionY;
         customImageGroup.position.y = positionY; // initial custom image position is 0
-        sphere.position.y = positionY + 50; // Update sphere position to match custom image
+        sphere.position.y = positionY + 42; // Update sphere position to match custom image
         break;
       }
       case 'backward': {
@@ -589,7 +590,7 @@ function animate(timestamp) {
         camera.position.y = initialCameraPositionY + positionY;
         dirLight.position.y = initialDirLightPositionY + positionY;
         customImageGroup.position.y = positionY;
-        sphere.position.y = positionY + 50 ; // Update sphere position to match custom image
+        sphere.position.y = positionY + 42 ; // Update sphere position to match custom image
         break;
       }
       case 'left': {
@@ -597,7 +598,7 @@ function animate(timestamp) {
         camera.position.x = initialCameraPositionX + positionX;
         dirLight.position.x = initialDirLightPositionX + positionX;
         customImageGroup.position.x = positionX; // initial custom image position is 0
-        sphere.position.x = positionX - 5; // Update sphere position relative to custom image
+        sphere.position.x = positionX - 12; // Update sphere position relative to custom image
         break;
       }
       case 'right': {
@@ -605,7 +606,7 @@ function animate(timestamp) {
         camera.position.x = initialCameraPositionX + positionX;
         dirLight.position.x = initialDirLightPositionX + positionX;
         customImageGroup.position.x = positionX;
-        sphere.position.x = positionX - 5; // Update sphere position relative to custom image
+        sphere.position.x = positionX - 12; // Update sphere position relative to custom image
         break;
       }
     }
